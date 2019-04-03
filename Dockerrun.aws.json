@@ -1,0 +1,42 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "alindumitru/multicontainer-client",
+            "hostname": "client",
+            "essential": false,
+            "memory": 500
+        },
+        {
+            "name": "server",
+            "image": "alindumitru/multicontainer-server",
+            "hostname": "api",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "worker",
+            "image": "alindumitru/multicontainer-docker",
+            "hostname": "worker",
+            "essential": false,
+            "memory": 128
+        },
+        {
+            "name": "nginx",
+            "image": "alindumitru/multicontainer-nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links": [
+                "client",
+                "server"
+            ],
+            "memory": 128
+        }
+    ]
+}
